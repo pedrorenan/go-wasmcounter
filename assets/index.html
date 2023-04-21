@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="wasm_exec.js"></script>
+    <script>
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
+            go.run(result.instance);
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Hello WebAssembly</h1>
+    <button id="increment" onclick="incrementCounter()">Increment</button>
+    <span id="count">0</span>
+    <button id="decrement" onclick="decrementCounter()">Decrement</button>
+</body>
+
+<script>
+
+    function incrementCounter() {
+        const count = increment();
+        setCounterValue(count);
+    }
+
+    function decrementCounter() {
+        const count = decrement();
+        setCounterValue(count);
+    }
+
+    function setCounterValue(value) {
+        const countEl = document.getElementById("count");
+        countEl.textContent = value;
+    }
+
+</script>
+
+</html>
